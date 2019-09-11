@@ -1,6 +1,63 @@
 # 基本情報処理技術者試験 対策
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">クリエイティブ・コモンズ 表示 - 非営利 4.0 国際 ライセンス</a>の下に提供されています。
+## Environment
+
+- Docker: `19.03.2`
+- DockerCompose: `1.24.0`
+- CLI:
+    - Node.js: `10.15.3`
+    - yarn: `1.15.2`
+
+### Structure
+```conf
+./
+ |_ app/  # Webアプリケーション本体
+ |   |_ api/
+ |   |   |_ server.py # APIサーバー
+ |   |
+ |   |_ front/
+ |   |   |_ server.py # フロントエンドサーバー（フロント作成はVueで行う）
+ |   |
+ |   |_ src/
+ |   |   |_ index.js  # Vueソースコード（エントリーポイント）
+ |   |
+ |   |_ static/  # 静的ファイル配置ディレクトリ
+ |   |   |_ js/
+ |   |       |_ bundle.js # VueソースコードをWebpackでbundleしたもの
+ |   |
+ |   |_ vassals/
+ |       |_ api.ini   # APIサーバーのuWSGI設定
+ |       |_ front.ini # フロントエンドサーバーのuWSGI設定
+ |
+ |_ flask/ # flaskコンテナ
+ |   |_ Dockerfile       # ビルド設定
+ |   |_ requirements.txt # Pythonの依存モジュール定義
+ |
+ |_ web/  # webコンテナ
+ |   |_ logs/            # nginxログ出力ディレクトリ
+ |   |_ Dockerfile       # ビルド設定
+ |   |_ nginx.conf       # nginx設定ファイル
+ |
+ |_ docker-compose.yml  # DockerComposeビルド設定
+                        # - web:   Nginx 1.17 | http://fe-exam.localhost
+                        # - flask: Python 3.7 + Flask + uWSGI
+```
+
+### Setup
+```bash
+# Dockerコンテナをビルド＆起動
+$ docker-compose build
+$ docker-compose up -d
+
+# appディレクトリに移動
+$ cd app
+
+# node.js 開発開始
+$ yarn install # 依存パッケージインストール
+$ yarn watch   # js, vue ファイル変更検知＆バンドル
+```
+
+***
 
 ## n進数
 

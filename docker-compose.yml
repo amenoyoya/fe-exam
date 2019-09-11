@@ -20,7 +20,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       # VIRTUAL_HOST設定（nginx-proxy）
-      VIRTUAL_HOST: nginx.localhost # http://nginx.localhost => docker://web:80
+      VIRTUAL_HOST: fe-exam.localhost # http://fe-exam.localhost => docker://web:80
       VIRTUAL_PORT: 80
 
   flask:
