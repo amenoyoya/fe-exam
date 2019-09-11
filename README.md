@@ -9,7 +9,7 @@
     - yarn: `1.15.2`
 
 ### Structure
-```conf
+```bash
 ./
  |_ app/  # Webアプリケーション本体
  |   |_ api/
