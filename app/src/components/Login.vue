@@ -47,13 +47,13 @@ export default {
   methods: {
     login() {
       this.warning = '', this.error = '';
-      axios.post('/api/login/', {
-        csrf: document.getElementById('csrf').value, username: this.username, password: this.password
+      axios.post(`/api${this.$store.state.config.endpoints.login}`, {
+        username: this.username, password: this.password
       })
         .then((res) => {
-          if (res.data.auth) {
+          if (res.data.login) {
             this.$store.commit('authenticate', res.data);
-            this.$router.push(this.$route.query.redirect || '/');
+            this.$router.push(this.$route.query.redirect || '/dashboard');
           } else {
             this.warning = res.data.message;
           }

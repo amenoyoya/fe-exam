@@ -31,12 +31,9 @@
             <a class="navbar-item" @click.prevent="logout">Log out</a>
           </div>
         </div>
-        <!-- サインイン｜ログイン -->
+        <!-- ログイン -->
         <div class="navbar-item" v-else>
           <div class="buttons">
-            <router-link to="/signup/" class="button is-danger">
-              <strong>Sign up</strong>
-            </router-link>
             <a class="button is-light" href="/login/">
               Log in
             </a>
@@ -65,7 +62,7 @@ export default {
       }
     },
     async logout() {
-      const res = await axios.post('/api/logout/', {csrf: document.getElementById('csrf').value});
+      const res = await axios.post(`/api${this.$store.state.config.endpoints.logout}`);
       this.$store.commit('authenticate', res.data);
       this.$router.push('/login/'); 
     }

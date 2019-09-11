@@ -13,7 +13,6 @@ import ja from 'vee-validate/dist/locale/ja';
 import NavBar from './components/parts/NavBar';
 import Home from './components/Home';
 import Login from './components/Login';
-import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 
 Vue.use(Router);
@@ -35,6 +34,8 @@ Vue.component('nav-bar', NavBar);
 // store: グローバル状態管理
 const store = new Vuex.Store({
   state: {
+    // APIサーバー設定
+    config: {},
     // ログイン状態
     auth: {
       token: '',
@@ -42,6 +43,11 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    // APIサーバー設定をセット
+    configure(state, config) {
+      state.config = config;
+    },
+
     // ログイン状態をセット
     authenticate(state, auth) {
       state.auth.token = auth.token;
@@ -61,11 +67,6 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: Signup
-    },
-    {
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
@@ -77,23 +78,19 @@ const router = new Router({
 // ログイン済みか確認
 const authenticated = async (store) => {
   try {
-    const res = await axios.post('/api/auth/', {
-      csrf: document.getElementById('csrf').value, auth_token: store.state.auth.token
+    const res = await axios.post(`/api${store.state.config.endpoints.auth}`, {
+      auth_token: store.state.auth.token
     });
     return res.data;
   } catch (err) {
-    return {
-      auth: false,
-      status: err.response.status,
-      message: err.response.statusText
-    };
+    return {auth: false};
   }
 };
 
 // ログイン状態をsessionからセット
 const authenticateFromSession = async store => {
   try {
-    const res = await axios.post('/api/auth/session/', {csrf: document.getElementById('csrf').value});
+    const res = await axios.post(`/api${store.state.config.endpoints.auth_session}`);
     store.state.auth.token = res.data.token;
     store.state.auth.username = res.data.username;
   } catch (err) {
