@@ -14,6 +14,7 @@ import NavBar from './components/parts/NavBar';
 import Home from './components/Home';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import Markdown from './components/Markdown';
 
 Vue.use(Router);
 Vue.use(Vuex);
@@ -71,6 +72,11 @@ const router = new Router({
       name: 'dashboard',
       component: Dashboard,
       meta: {auth: true} // 認証必要
+    },
+    {
+      path: '/markdown',
+      name: 'markdown',
+      component: Markdown,
     },
   ]
 });

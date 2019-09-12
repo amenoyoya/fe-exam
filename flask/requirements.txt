@@ -1,3 +1,6 @@
 flask
 uwsgi
 pyyaml
+markdown
+pygments
+py-gfm

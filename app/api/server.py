@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, session, request
-import yaml, hashlib, secrets
+from markdown import markdown
+from mdx_gfm import GithubFlavoredMarkdownExtension
+import yaml, hashlib, secrets, os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex() # セッション暗号化
@@ -73,6 +75,18 @@ def logout():
     return jsonify({
         'token': 'null', 'username': ''
     })
+
+# GET /api/markdown/<filename> => <filename>のMarkdownをHTMLに変換して返す
+@app.route('/markdown/<string:filename>', methods=['GET'])
+def md(filename):
+    path = f'./markdown/{filename}.md'
+    if not os.path.isfile(path):
+        return 'file not found'
+    with open(path) as f:
+        return markdown(f.read(), extensions=[
+            'toc', 'attr_list', 'tables', 'fenced_code', 'codehilite(css_class=highlight)',
+            GithubFlavoredMarkdownExtension()
+        ])
 
 if __name__ == '__main__':
     # run server

@@ -20,7 +20,7 @@ export default {
       // redirect先がクエリに指定されているならリダイレクト
       this.$router.push(this.$route.query.redirect);
     } else {
-      // this.$router.push('/dashboard/');
+      this.$router.push('/markdown/');
     }
   }
 }
