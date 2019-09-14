@@ -84,8 +84,8 @@ const router = new Router({
 // ログイン済みか確認
 const authenticated = async (store) => {
   try {
-    const res = await axios.post(`/api${store.state.config.endpoints.auth}`, {
-      auth_token: store.state.auth.token
+    const res = await axios.post(store.state.config.endpoints.auth, {
+      csrf: document.getElementById('csrf').value, auth_token: store.state.auth.token
     });
     return res.data;
   } catch (err) {
@@ -96,7 +96,7 @@ const authenticated = async (store) => {
 // ログイン状態をsessionからセット
 const authenticateFromSession = async store => {
   try {
-    const res = await axios.post(`/api${store.state.config.endpoints.auth_session}`);
+    const res = await axios.post(store.state.config.endpoints.auth_session, {csrf: document.getElementById('csrf').value});
     store.state.auth.token = res.data.token;
     store.state.auth.username = res.data.username;
   } catch (err) {

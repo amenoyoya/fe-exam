@@ -1,24 +1,8 @@
-from flask import Flask, jsonify, session, request
-from markdown import markdown
-from mdx_gfm import GithubFlavoredMarkdownExtension
-import yaml, hashlib, secrets, os
-
-app = Flask(__name__)
-app.secret_key = secrets.token_hex() # セッション暗号化
-
-# load application configures
-with open('./config.yml') as f:
-    configures = yaml.load(f)
-
-# GET /api/ => APIサーバー設定を返す
-@app.route('/', methods=['GET'])
-def index():
-    return jsonify({
-        'endpoints': configures['endpoints']
-    })
+from __init__ import Application, request, session, jsonify
+import secrets, hashlib
 
 # POST /api/$auth => ログイン状態を返す
-@app.route(configures['endpoints']['auth'], methods=['POST'])
+@Application.cmd(Application.config['endpoints']['auth'], methods=['POST'])
 def auth():
     if 'auth_token' not in session:
         return jsonify({
@@ -33,7 +17,7 @@ def auth():
     })
 
 # POST /api/$auth_session => セッションからログイン状態を返す
-@app.route(configures['endpoints']['auth_session'], methods=['POST'])
+@Application.cmd(Application.config['endpoints']['auth_session'], methods=['POST'])
 def auth_session():
     if 'auth_token' not in session:
         return jsonify({
@@ -44,14 +28,14 @@ def auth_session():
     })
 
 # POST /api/$login => ユーザーログイン処理を実行
-@app.route(configures['endpoints']['login'], methods=['POST'])
+@Application.cmd(Application.config['endpoints']['login'], methods=['POST'])
 def login():
     if 'username' not in request.json or 'password' not in request.json:
         return jsonify({
             'login': False, 'message': 'invalid parameters'
         })
     # ユーザー名の一致するメンバーのパスワードを抽出
-    passwords = [x['password'] for x in configures['auth']['members'] if x['name'] == request.json['username']]
+    passwords = [x['password'] for x in Application.config['auth']['members'] if x['name'] == request.json['username']]
     # パスワードの一致あり
     if len(passwords) > 0 and hashlib.sha256(request.json['password'].encode('utf-8')).hexdigest() == passwords[0]:
         token = secrets.token_hex() # トークン発行
@@ -66,7 +50,7 @@ def login():
     })
 
 # POST /api/$logout => セッションからログイン状態を削除
-@app.route(configures['endpoints']['logout'], methods=['POST'])
+@Application.cmd(Application.config['endpoints']['logout'], methods=['POST'])
 def logout():
     if 'auth_token' in session:
         del session['auth_token']
@@ -75,19 +59,3 @@ def logout():
     return jsonify({
         'token': 'null', 'username': ''
     })
-
-# GET /api/markdown/<filename> => <filename>のMarkdownをHTMLに変換して返す
-@app.route('/markdown/<string:filename>', methods=['GET'])
-def md(filename):
-    path = f'./markdown/{filename}.md'
-    if not os.path.isfile(path):
-        return 'file not found'
-    with open(path) as f:
-        return markdown(f.read(), extensions=[
-            'toc', 'attr_list', 'tables', 'fenced_code', 'codehilite(css_class=highlight)',
-            GithubFlavoredMarkdownExtension()
-        ])
-
-if __name__ == '__main__':
-    # run server
-    app.run(debug=True)

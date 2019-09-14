@@ -62,7 +62,7 @@ export default {
       }
     },
     async logout() {
-      const res = await axios.post(`/api${this.$store.state.config.endpoints.logout}`);
+      const res = await axios.post(this.$store.state.config.endpoints.logout, {csrf: document.getElementById('csrf').value});
       this.$store.commit('authenticate', res.data);
       this.$router.push('/login/'); 
     }

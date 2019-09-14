@@ -70,7 +70,7 @@ export default {
     signup() {
       this.info = '', this.warning = '', this.error = '';
       axios.post('/api/signup/', {
-        username: this.username, password: this.password
+        csrf: document.getElementById('csrf').value, username: this.username, password: this.password
       })
         .then((res) => {
           if (res.data.reg) {

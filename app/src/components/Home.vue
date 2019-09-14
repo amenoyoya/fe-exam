@@ -13,7 +13,7 @@ import axios from 'axios';
 export default {
   async mounted() {
     // APIルートからサーバー設定を取得
-    const res = await axios.get('/api/');
+    const res = await axios.post('/api/', {csrf: document.getElementById('csrf').value});
 
     this.$store.commit('configure', res.data); // Storeに設定保存
     if (this.$route.query.redirect) {
