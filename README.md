@@ -34,7 +34,6 @@
  |   |_ requirements.txt # Pythonの依存モジュール定義
  |
  |_ web/  # webコンテナ
- |   |_ logs/            # nginxログ出力ディレクトリ
  |   |_ Dockerfile       # ビルド設定
  |   |_ nginx.conf       # nginx設定ファイル
  |
