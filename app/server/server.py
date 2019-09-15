@@ -13,7 +13,7 @@ def md(filename):
         return 'file not found'
     with open(path) as f:
         return markdown(f.read(), extensions=[
-            'toc', 'attr_list', 'tables', 'fenced_code'
+            'extra', 'admonition', 'codehilite', 'meta', 'nl2br', 'sane_lists', 'smarty', 'wikilinks'
         ])
 
 if __name__ == '__main__':
