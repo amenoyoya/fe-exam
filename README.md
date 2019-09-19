@@ -12,34 +12,36 @@
 ```bash
 ./
  |_ app/  # Webアプリケーション本体
- |   |_ api/
- |   |   |_ server.py # APIサーバー
- |   |
- |   |_ front/
- |   |   |_ server.py # フロントエンドサーバー（フロント作成はVueで行う）
+ |   |_ seerver/
+ |   |   |_ static/ # 静的ファイル配置
+ |   |   |   |_ js/
+ |   |   |       |_ bundle.js # webpackバンドル後のJSファイル
+ |   |   |
+ |   |   |_ __init__.py   # ライブラリ本体
+ |   |   |_ auth_api.py   # ユーザー認証API
+ |   |   |_ config.yml    # 設定ファイル
+ |   |   |_ server.py     # Flaskサーバー
  |   |
  |   |_ src/
- |   |   |_ index.js  # Vueソースコード（エントリーポイント）
- |   |
- |   |_ static/  # 静的ファイル配置ディレクトリ
- |   |   |_ js/
- |   |       |_ bundle.js # VueソースコードをWebpackでbundleしたもの
+ |   |   |_ index.js      # Vueソースコード（エントリーポイント）
  |   |
  |   |_ vassals/
- |       |_ api.ini   # APIサーバーのuWSGI設定
- |       |_ front.ini # フロントエンドサーバーのuWSGI設定
+ |   |   |_ server.ini    # FlaskサーバーのuWSGI設定
+ |   |
+ |   |_ package.json      # Node.js依存モジュール定義
+ |   |_ webpack.config.js # webpackバンドル設定
  |
  |_ flask/ # flaskコンテナ
- |   |_ Dockerfile       # ビルド設定
- |   |_ requirements.txt # Pythonの依存モジュール定義
+ |   |_ Dockerfile        # ビルド設定
+ |   |_ requirements.txt  # Python依存モジュール定義
  |
- |_ web/  # webコンテナ
- |   |_ Dockerfile       # ビルド設定
- |   |_ nginx.conf       # nginx設定ファイル
+ |_ web/   # webコンテナ
+ |   |_ Dockerfile        # ビルド設定
+ |   |_ nginx.conf        # nginx設定ファイル
  |
- |_ docker-compose.yml  # DockerComposeビルド設定
-                        # - web:   Nginx 1.17 | http://fe-exam.localhost
-                        # - flask: Python 3.7 + Flask + uWSGI
+ |_ docker-compose.yml    # DockerComposeビルド設定
+                          # - web:   Nginx 1.17 | http://fe-exam.localhost
+                          # - flask: Python 3.7 + Flask + uWSGI
 ```
 
 ### Setup
