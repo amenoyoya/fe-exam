@@ -1,0 +1,3 @@
+Internet Protocol address
+
+ネットワークに接続する機器を一意に識別するためのアドレス

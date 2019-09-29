@@ -1,0 +1,3 @@
+Network Address Port Translation
+
+一つのグローバルアドレスに複数のプライベートアドレスとの相互変換を行う技術

@@ -1,0 +1,3 @@
+Consumer Generated Media
+
+個人が作成したコンテンツをインターネット上で収集したメディア

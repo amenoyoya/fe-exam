@@ -1,0 +1,3 @@
+Web Application Firewall
+
+Webアプリケーションの脆弱性をつく攻撃を防御するためのセキュリティ対策製品

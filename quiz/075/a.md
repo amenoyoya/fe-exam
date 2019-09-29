@@ -1,0 +1,3 @@
+Common Gateway Interface
+
+Webサーバ上でプログラムを使って処理した結果を表示させる機能

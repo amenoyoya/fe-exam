@@ -1,0 +1,3 @@
+File Transfer Protocol
+
+任意のファイルをインターネット経由で送受信するための仕組み

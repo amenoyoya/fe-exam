@@ -1,0 +1,3 @@
+Hypertext Transfer Protocol Secure
+
+HTTPにSSL暗号化・認証機能を追加したセキュリティプロトコル

@@ -1,0 +1,3 @@
+Multipurpose Internet Mail Extension
+
+電子メールを用いてバイナリデータを送受信するための規格
