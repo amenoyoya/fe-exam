@@ -1,0 +1,3 @@
+Million Instructions Per Second
+
+CPUが1秒間に実行できる命令数を百万単位で表したもの
