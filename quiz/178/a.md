@@ -1,0 +1,3 @@
+Materials Requirements Planning
+
+在庫量などを適切に管理し、効率的な生産計画を策定する生産管理手法

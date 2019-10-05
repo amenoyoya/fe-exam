@@ -1,0 +1,3 @@
+Radio Frequency Identifier
+
+無線を利用して非接触形式でデータ転送を行うマイクロチップ
