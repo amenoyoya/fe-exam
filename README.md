@@ -5,18 +5,19 @@
 - OS:
     - Windows 10
     - Ubuntu 18.04
-- CLI:
-    - Node.js: `10.15.3`
-        - Yarn package manager: `1.15.2`
-            - ※ `yarn global bin` で表示されるPATHを通しておく
+- Application:
+    - [Anki](https://apps.ankiweb.net/): 暗記アプリ
+    - Python 3.7 (Anaconda 4.7.12)
+        - genanki: Anki用デッキ作成ライブラリ
+        - markdown + pygments: Markdown用ライブラリ
 
 ### Setup
 ```bash
-# node global install
-$ yarn global add electron-prebuilt
+# install: python modules
+$ pip install -r requirements.txt
 
-# start electron app
-$ electron main.js
+# generate: Anki Deck
+$ python main.py
 ```
 
 ***
