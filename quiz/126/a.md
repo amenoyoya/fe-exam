@@ -1,0 +1,3 @@
+Work Breakdown Structure
+
+プロジェクトの作業を大きいものから小さいものに分割して管理する図法

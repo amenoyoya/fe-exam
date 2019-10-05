@@ -1,0 +1,3 @@
+Unified Modeling Language
+
+オブジェクト指向の各種要素やその構成などを統一された書式で表現する図法

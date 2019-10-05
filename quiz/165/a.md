@@ -1,0 +1,3 @@
+Customer Relationship Management
+
+システムを利用して、顧客との間に良好な関係を構築する経営戦略手法

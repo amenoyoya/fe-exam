@@ -1,0 +1,3 @@
+Service-Oriented Architecture
+
+ソフトウェアの機能をサービスとして、その組み合わせによりシステムを構成すること

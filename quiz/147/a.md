@@ -1,0 +1,3 @@
+Business Process Management
+
+業務プロセスの問題点などを分析し、継続的に改善していくこと
