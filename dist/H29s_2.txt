@@ -1,7 +1,91 @@
 H29春 午後
 
-1. エ, 2. イ,
-3. b: ウ, c: ア, d: オ
+[1]
+1: エ, 2: イ,
+3: b: ウ, c: ア, d: オ
 10万+(12*50000=60万)=70万
 3万*25=75万
 
+[2]
+a: 128+32+16+8+4+2=190; 11,14 BE; イ b: エ, c: ウ->イ
+123457
+1011|1110
+d: イ, e: エ
+
+[3]
+1: ア, a: エ, b: エ->ア, c: ウ->ア, d: ア
+
+[4]
+a: 248+24+101.5+16=389.5; 1460*8/389.5=30; ウ
+b: ア, c: ウ->ア, 3: オ->イ
+
+[5]
+a: ア->イ, b: カ, c: ウ, d: イ, 3: ウ
+
+[8]
+a: エ->イ, b: ア->オ, c: ク->キ, d: イ, e: ->イ, f: ->カ, g: ->ア
+ShortestPath(
+    Distance::Array{int, 2}, # Distance[i][j]: i〜j間の距離（同一地点なら0, 隣接していないなら-1）
+    nPoint::int, # 地点数
+    sp::int, # 出発地の地点番号=0
+    dp::int, # 目的地の地点番号=nPoint-1
+    sRoute::Array{int,1}, # 採点経路の地点番号配列
+    sDist::int # 最短距離
+) = {
+    pDist::Array{int,1} # 出発地から各地点への最短距離配列
+    pFixed::Array{int,1} # 各地点の最短距離の確定状態
+    
+    # 初期化
+    sDist::int = INF # 最短距離の初期値=無限
+    for i in 0 : nPoint-1 {
+        sRoute[i] = -1 # 初期値点=-1: ダミー
+        pDist[i] = INF
+        pFixed[i] = false
+    }
+    # 最短経路探索
+    pDist[sp] = 0 # 出発地から出発地への最短距離=0
+    while true {
+        i::int = 0
+        while i < nPoint {
+            if !pFixed[i] {
+                # 未確定の地点
+                break;
+            }
+            ++i
+        }
+        # 全ての地点の最短距離が確定済み
+        if i == nPoint {
+            break
+        }
+        # 未確定地点の先から最短距離のより短い地点を探す
+        for j in i+1 : nPoint-1 {
+            if pDist[j] < pDist[i] && pFixed[j] {
+                i = j
+            }
+        }
+        sPoint = i # 出発地からの距離が最も短い地点を確定
+        # 出発地からの最短距離を確定
+        pFixed[sp] = true
+        for j in 0 : nPoint-1 {
+            if Distance[sPoint][j] > 0 && !pFixed[j] {
+                newDist = pDist[sPoint] + Distance[sPoint][j]
+                if newDist < pDist[j] {
+                    pDist[j] = newDist
+                    pRoute[j] = sPoint
+                }
+            }
+        }
+    }
+    sDist = pDist[dp]
+    j = 0
+    i = dp
+    if i != sp {
+        sRoute[sp] = i
+        i = pRoute[i]
+    }
+}
+
+[13]
+a: エ->イ, b: ア, c: ウ, d: エ->ウ, e: ->イ, f: ->エ
+
+21/37 = 56%
