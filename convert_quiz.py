@@ -35,18 +35,22 @@ model = genanki.Model(
   ]
 )
 
-# add Anki cards
-for i in range(1, 201):
-    dir = './quiz/{:03d}'.format(i)
-    q = load_markdown(f'{dir}/q.md') # 質問
-    a = load_markdown(f'{dir}/a.md') # 解答
-    print(dir, q)
-    note = genanki.Note(
-        model=model,
-        fields=[q, a]
-    )
-    deck.add_note(note)
+def create_anki_package(name: str, num: int) -> None:
+    # add Anki cards
+    for i in range(1, num + 1):
+        dir = './{:s}/{:03d}'.format(name, i)
+        q = load_markdown(f'{dir}/q.md') # 質問
+        a = load_markdown(f'{dir}/a.md') # 解答
+        print(dir, q)
+        note = genanki.Note(
+            model=model,
+            fields=[q, a]
+        )
+        deck.add_note(note)
 
-# generate Anki Deck to Package
-pkg = genanki.Package(deck)
-pkg.write_to_file('fe-exam.apkg')
+    # generate Anki Deck to Package
+    pkg = genanki.Package(deck)
+    pkg.write_to_file(f'{name}.apkg')
+
+create_anki_package('quiz', 200)
+create_anki_package('casl2', 3)
